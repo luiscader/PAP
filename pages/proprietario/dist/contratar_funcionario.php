@@ -68,6 +68,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contratar'])) {
         if ($stmt = $conn->prepare($sql_contratar)) {
             $stmt->bind_param("isi", $id_utilizador, $cargo, $restaurante_id);
             if ($stmt->execute()) {
+                // Atualizar o tipo do usuário para "associado"
+                $sql_update_tipo = "UPDATE utilizador SET tipo = 'associado' WHERE id = ?";
+                if ($stmt_update = $conn->prepare($sql_update_tipo)) {
+                    $stmt_update->bind_param("i", $id_utilizador);
+                    $stmt_update->execute();
+                    $stmt_update->close();
+                }
+
                 header("Location: funcionarios.php?success=1");
                 exit();
             } else {
@@ -79,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contratar'])) {
         $message = "Dados inválidos para contratação!";
     }
 }
+
 
 // Query para dados do navbar/sidebar
 $sql = "SELECT id, nome, email, senha, tipo FROM utilizador WHERE id = ?";

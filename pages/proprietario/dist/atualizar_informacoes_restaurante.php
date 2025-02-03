@@ -22,7 +22,7 @@ if ($stmt = $conn->prepare($sql)) {
     if ($result->num_rows > 0) {
         $restaurant_data = $result->fetch_assoc();
     } else {
-        $message = "Restaurante não encontrado.";
+        $_SESSION['message'] = "Restaurante não encontrado."; // Usar sessão
     }
     $stmt->close();
 }
@@ -50,28 +50,28 @@ if (isset($_FILES['restaurant_image']) && $_FILES['restaurant_image']['error'] !
         switch ($_FILES["restaurant_image"]["error"]) {
             case UPLOAD_ERR_INI_SIZE:
             case UPLOAD_ERR_FORM_SIZE:
-                $message = "O ficheiro é muito grande. (Apenas até 5MB)";
+                $_SESSION['message'] = "O ficheiro é muito grande. (Apenas até 5MB)";
                 break;
             default:
-                $message = "Erro ao carregar a imagem.";
+                $_SESSION['message'] = "Erro ao carregar a imagem.";
         }
     } else {
         // Check if image is valid
         $check = getimagesize($_FILES["restaurant_image"]["tmp_name"]);
         if ($check === false) {
-            $message = "O ficheiro não é uma imagem.";
+            $_SESSION['message'] = "O ficheiro não é uma imagem.";
             $uploadOk = 0;
         }
 
         // Check file size
         if ($_FILES["restaurant_image"]["size"] > 5000000) {
-            $message = "O ficheiro é muito grande.";
+            $_SESSION['message'] = "O ficheiro é muito grande.";
             $uploadOk = 0;
         }
 
         // Check file format
         if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-            $message = "Apenas ficheiros JPG, JPEG & PNG são permitidos.";
+            $_SESSION['message'] = "Apenas ficheiros JPG, JPEG & PNG são permitidos.";
             $uploadOk = 0;
         }
     }
@@ -85,19 +85,24 @@ if (isset($_FILES['restaurant_image']) && $_FILES['restaurant_image']['error'] !
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("is", $id_restaurante, $targetFileWeb);
                 if ($stmt->execute()) {
-                    $message = "Imagem carregada com sucesso!";
+                    $_SESSION['message'] = "Imagem carregada com sucesso!";
                 } else {
-                    $message = "Erro ao salvar a imagem no banco de dados: " . $conn->error;
+                    $_SESSION['message'] = "Erro ao salvar a imagem no banco de dados: " . $conn->error;
                 }
                 $stmt->close();
             } else {
-                $message = "Restaurante não encontrado.";
+                $_SESSION['message'] = "Restaurante não encontrado.";
             }
         } else {
-            $message = "Erro ao carregar a imagem.";
+            $_SESSION['message'] = "Erro ao carregar a imagem.";
         }
     }
+    
+    // Redirecionamento PRG
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
 }
+
 // Handle image deletion
 if (isset($_POST['delete_image'])) {
     $image_id = $_POST['delete_image'];
@@ -126,19 +131,30 @@ if (isset($_POST['delete_image'])) {
                 if (file_exists($image_path_server)) {
                     unlink($image_path_server);
                 }
-                $message = "Imagem eliminada com sucesso!";
+                $_SESSION['message'] = "Imagem eliminada com sucesso!";
             } else {
-                $message = "Erro ao eliminar a imagem da base de dados.";
+                $_SESSION['message'] = "Erro ao eliminar a imagem da base de dados.";
             }
             $delete_stmt->close();
         } else {
-            $message = "Imagem não encontrada ou não tem permissão.";
+            $_SESSION['message'] = "Imagem não encontrada ou não tem permissão.";
         }
         $stmt->close();
     } else {
-        $message = "Erro na preparação da consulta.";
+        $_SESSION['message'] = "Erro na preparação da consulta.";
     }
+    
+    // Redirecionamento PRG
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
 }
+
+// Recuperar mensagens da sessão
+if (isset($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+    unset($_SESSION['message']);
+}
+
 // Fetch restaurant data
 $restaurant_data = null;
 $sql = "SELECT * FROM restaurante WHERE id_proprietario = ?";
@@ -389,16 +405,28 @@ $conn->close();
                                             <?php echo $message; ?>
                                         </div>
                                     <?php endif; ?>
-                                    
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Adicionar Nova Imagem</label>
-                                                <input type="file" name="restaurant_image" class="form-control" accept="image/*">
+                                    <?php if (!empty($message)): ?>
+                                            <div class="alert <?= strpos($message, 'sucesso') !== false ? 'alert-success' : 'alert-danger' ?> alert-dismissible fade show">
+                                                <?= $message ?>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                             </div>
+                                        <?php endif; ?>
+
+                                    <div class="form-group">
+                                        <label>Adiconar Imagens</label>
+                                        <input type="file" id="restaurant_image" name="restaurant_image" class="file-upload-default" accept="image/*">
+                                        <div class="input-group col-xs-12 d-flex align-items-center">
+                                            <input type="text" class="form-control file-upload-info" disabled placeholder="Adicone Ficheiros de Imagens ">
+                                            <span class="input-group-append ms-2">
+                                                <button id="upload-button" class="file-upload-browse btn btn-primary" type="button">Adiconar</button>
+                                            </span>
                                         </div>
                                     </div>
-
+                                    <div class="row mt-4">
+                                        <div class="col-12 text-center">
+                                            <button type="submit" class="btn btn-primary">Atualizar Informações</button>
+                                        </div>
+                                    </div>
                                     <div class="row mt-4">
                                         <div class="col-md-12">
                                             <h4>Imagens Atuais</h4>
@@ -410,7 +438,7 @@ $conn->close();
                                                             class="card-img-top" 
                                                             alt="Restaurant Image"
                                                             style="height: 200px; object-fit: cover; ">
-                                                        <div class="card-body">
+                                                        <div class="card-body text-center">
                                                         <button type="submit" 
                                                                 name="delete_image" 
                                                                 value="<?php echo $image['id']; ?>" 
@@ -423,11 +451,6 @@ $conn->close();
                                                 </div>
                                                 <?php endforeach; ?>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-4">
-                                        <div class="col-12 text-center">
-                                            <button type="submit" class="btn btn-primary">Atualizar Informações do Restaurante</button>
                                         </div>
                                     </div>
                                 </form>
@@ -446,5 +469,25 @@ $conn->close();
     <script src="assets/js/misc.js"></script>
     <script src="assets/js/settings.js"></script>
     <script src="assets/js/todolist.js"></script>
+    <script src="assets/js/file-upload.js"></script>
+    <script>
+        document.getElementById('upload-button').addEventListener('click', function() {
+            document.getElementById('restaurant_image').click();
+        });
+
+        document.getElementById('restaurant_image').addEventListener('change', function() {
+            var fileName = this.files[0].name;
+            document.querySelector('.file-upload-info').value = fileName;
+        });
+            // Script para fechar alertas automaticamente
+        window.setTimeout(function() {
+            document.querySelectorAll('.alert').forEach(alert => {
+                alert.style.display = 'none';
+            });
+        }, 5000);
+    </script>
+    <script>
+
+</script>
 </body>
 </html>

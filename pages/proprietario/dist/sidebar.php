@@ -129,13 +129,14 @@
         <span class="menu-icon">
           <i class="mdi mdi-bulletin-board"></i>
         </span>
-        <span class="menu-title">Gestão</span>
+        <span class="menu-title">Rservas de Mesa</span>
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse" id="gestao">
         <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="#">Criar Reservas de Mesa</a></li>
           <li class="nav-item"> <a class="nav-link" href="#">Reservas de Mesa</a></li>
-          <li class="nav-item"> <a class="nav-link" href="#">Categoria</a></li>
+          <li class="nav-item"> <a class="nav-link" href="#.php">Categoria</a></li>
           <li class="nav-item"> <a class="nav-link" href="#">Produtos</a></li>
           <li class="nav-item"> <a class="nav-link" href="#">Pratos</a></li>
         </ul>
@@ -151,11 +152,57 @@
       </a>
       <div class="collapse" id="pedidos">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="#">Pedidos</a></li>
+          <li class="nav-item"> <a class="nav-link" href="pedidos.php">Pedidos</a></li>
           <li class="nav-item"> <a class="nav-link" href="#">Historico de Pedidos</a></li>
         </ul>
       </div>
     </li>   
+    <li class="nav-item menu-items">
+      <a class="nav-link" data-bs-toggle="collapse" href="#categorias" aria-expanded="false" aria-controls="categorias">
+        <span class="menu-icon">
+          <i class="mdi mdi-label-outline"></i>
+        </span>
+        <span class="menu-title">Categorias</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="categorias">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="#">Criar Categoria</a></li>
+          <li class="nav-item"> <a class="nav-link" href="categorias.php">Categoria</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item menu-items">
+      <a class="nav-link" data-bs-toggle="collapse" href="#produtos" aria-expanded="false" aria-controls="produtos">
+        <span class="menu-icon">
+          <i class="mdi mdi-bulletin-board"></i>
+        </span>
+        <span class="menu-title">Produtos</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="produtos">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="#">Criar Produtos</a></li>
+          <li class="nav-item"> <a class="nav-link" href="#">Produtos</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item menu-items">
+      <a class="nav-link" data-bs-toggle="collapse" href="#pratos" aria-expanded="false" aria-controls="pratos">
+        <span class="menu-icon">
+          <i class="mdi mdi-food"></i>
+        </span>
+        <span class="menu-title">Pratos</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="pratos">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" href="#">Criar Pratos</a></li>
+          <li class="nav-item"> <a class="nav-link" href="#">Pratos</a></li>
+        </ul>
+      </div>
+    </li>
+
 <!--
     <li class="nav-item nav-category">
       <span class="nav-link">Navigation</span>

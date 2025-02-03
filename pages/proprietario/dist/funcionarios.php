@@ -114,7 +114,7 @@ $conn->close();
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Funcionários</h4>
-                        <a href="contratar_funcionarios.php" class="btn btn-primary">Contratar Funcionário</a>
+                        <a href="contratar_funcionario.php" class="btn btn-primary">Contratar Funcionário</a>
                         <div class="row">
                             <div class="col-12">
                                 <div class="table-responsive">

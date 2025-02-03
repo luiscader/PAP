@@ -250,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `utilizador` (
   `nome` varchar(255) NOT NULL,
   `email` varchar(191) NOT NULL,
   `senha` varchar(255) NOT NULL,
-  `tipo` enum('cliente','proprietario','fornecedor','admin') NOT NULL,
+  `tipo` enum('cliente','associado','proprietario','fornecedor','admin') NOT NULL,
   `telefone` varchar(20) DEFAULT NULL,
   `data_nascimento` date DEFAULT NULL,
   `nif` varchar(15) DEFAULT NULL,
