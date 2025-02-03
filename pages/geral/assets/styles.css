@@ -1,0 +1,567 @@
+:root {
+    --primary-color: #ff5722; /* Cor principal */
+    --secondary-color: #e64a19; /* Cor secundária */
+    --background-color: #ffffff; /* Cor de fundo */
+    --text-color: #333; /* Cor do texto */
+    --light-text-color: #555; /* Cor do texto claro */
+    --border-color: #ebebeb; /* Cor da borda */
+    --shadow-color: rgba(0, 0, 0, 0.1); /* Cor da sombra */
+    --hover-background-color: #fff7ed; /* Cor de fundo ao passar o mouse */
+    --card-background-color: #ffffff; /* Cor de fundo dos cartões */
+}
+
+body {
+    margin: 0; /* Remove a margem padrão */
+    font-family: Arial, sans-serif; /* Define a fonte */
+    background-color: var(--background-color); /* Cor de fundo */
+    overflow-x: hidden; /* Evita barra de rolagem horizontal */
+}
+
+h2 {
+    margin-left: 100px; /* Margem à esquerda */
+    margin-right: 100px; /* Margem à direita */
+}
+
+/* Navbar - Definição do estilo da barra de navegação */
+.navbar {
+    display: flex; /* Usando flexbox para o layout */
+    justify-content: space-between; /* Espaça os itens igualmente */
+    align-items: center; /* Alinha verticalmente os itens */
+    background-color: var(--background-color); /* Cor de fundo */
+    padding: 10px 20px; /* Padding interno */
+    border-bottom: 1px solid var(--border-color); /* Linha de separação na parte inferior */
+    height: 80px; /* Altura da navbar */
+    position: sticky; /* Fixa a navbar no topo */
+    top: 0; /* Fixa no topo da tela */
+    z-index: 1000; /* Define a prioridade de empilhamento */
+}
+
+/* Estilo para o link do logo */
+.logo a {
+    text-decoration: none; /* Remove o sublinhado do link */
+    color: inherit; /* Herdar a cor do texto */
+    display: flex; /* Flexbox para alinhar os itens */
+    align-items: center; /* Alinha verticalmente o conteúdo */
+}
+
+/* Definindo as dimensões do logo */
+.logo img {
+    width: 60px; /* Largura do logo */
+    height: 60px; /* Altura do logo */
+    margin-right: 10px; /* Margem à direita do logo */
+}
+
+/* Estilo do nome do logo */
+.logo span {
+    font-size: 25px; /* Tamanho da fonte */
+    font-weight: bold; /* Deixa o texto em negrito */
+    color: var(--text-color); /* Cor do texto */
+}
+
+/* Barra de pesquisa */
+.search-bar {
+    margin-top: 20px; /* Margem no topo */
+    display: flex; /* Flexbox para o layout */
+    align-items: center; /* Alinha verticalmente os itens */
+    background-color: var(--background-color); /* Cor de fundo */
+    border: 1px solid #ccc; /* Borda da caixa de pesquisa */
+    border-radius: 10px; /* Bordas arredondadas */
+    padding: 5px 15px; /* Padding interno */
+    box-shadow: 0 2px 5px var(--shadow-color); /* Sombra sutil */
+    width: 700px; /* Largura fixa */
+    max-width: 90%; /* Largura máxima */
+    justify-content: flex-start; /* Alinha os itens à esquerda */
+}
+
+/* Estilo do ícone de localização */
+.search-bar .location {
+    width: 200px;
+    display: flex; /* Flexbox para alinhar os itens */
+    align-items: center; /* Alinha verticalmente o ícone e o texto */
+    margin-right: 10px; /* Margem à direita */
+    color: var(--light-text-color); /* Cor do texto */
+    padding-right: 10px; /* Espaço à direita */
+    border-right: 2px solid #ccc; /* Barra de separação */
+}
+
+/* Estilo do ícone dentro da localização */
+.search-bar .location i {
+    margin-right: 5px; /* Espaço à direita */
+    font-size: 16px; /* Tamanho do ícone */
+}
+
+/* Estilo para o dropdown de seleção */
+.search-bar select {
+    flex-grow: 1; /* O dropdown ocupa o máximo de largura possível */
+    height: 30px; /* Altura fixa */
+    padding: 0 10px; /* Padding interno */
+    border-radius: 10px; /* Bordas arredondadas */
+    font-size: 14px; /* Tamanho da fonte */
+    margin-right: 10px; /* Margem à direita */
+}
+
+/* Estilo do campo de input de texto */
+.search-bar input {
+    flex: 1; /* O input ocupa o espaço restante */
+    height: 40px; /* Altura do campo de input */
+    border: none; /* Remove a borda padrão */
+    outline: none; /* Remove a linha de contorno */
+    font-size: 14px; /* Tamanho da fonte */
+    color: var(--light-text-color); /* Cor do texto */
+    margin-right: 10px; /* Margem à direita */
+}
+
+/* Estilo do botão de pesquisa */
+.search-bar button {
+    height: 40px; /* Altura do botão */
+    background-color: var(--primary-color); /* Cor de fundo do botão */
+    border: none; /* Remove a borda padrão */
+    color: white; /* Cor do texto */
+    padding: 0 15px; /* Padding interno */
+    border-radius: 10px; /* Bordas arredondadas */
+    font-size: 14px; /* Tamanho da fonte */
+    cursor: pointer; /* Cursor de pointer ao passar o mouse */
+    transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+    display: flex; /* Flexbox para o layout */
+    align-items: center; /* Alinha os itens verticalmente */
+    justify-content: center; /* Alinha os itens horizontalmente */
+}
+
+/* Efeito de hover no botão */
+.search-bar button:hover {
+    background-color: var(--secondary-color); /* Altera a cor ao passar o mouse */
+}
+
+/* Ações do Usuário - Botões de login e cadastro */
+.user-actions {
+    display: flex; /* Flexbox para o layout */
+    align-items: center; /* Alinha os itens verticalmente */
+    gap: 10px; /* Espaçamento entre os botões */
+}
+
+/* Estilo dos botões de ação */
+.user-actions .btn {
+    border: 1px solid var(--primary-color); /* Borda do botão */
+    border-radius: 10px; /* Bordas arredondadas */
+    padding: 10px 20px; /* Padding interno */
+    font-size: 16px; /* Tamanho da fonte */
+    cursor: pointer; /* Cursor de pointer */
+    text-decoration: none; /* Remove sublinhado do link */
+    color: var(--primary-color); /* Cor do texto */
+    transition: all 0.3s ease; /* Transição suave para os efeitos de hover */
+}
+
+/* Efeito de hover nos botões de ação */
+.user-actions .btn:hover {
+    background-color: var(--secondary-color); /* Altera a cor de fundo */
+    color: white; /* Altera a cor do texto */
+}
+
+/* Estilo do botão de cadastro */
+.user-actions .btn.signup {
+    background-color: var(--primary-color); /* Cor de fundo do botão */
+    color: white; /* Cor do texto */
+}
+
+/* Efeito de hover no botão de cadastro */
+.user-actions .btn.signup:hover {
+    background-color: var(--secondary-color); /* Altera a cor ao passar o mouse */
+}
+
+/* Imagem de perfil */
+.profile-link {
+    display: flex; /* Flexbox para alinhar os itens */
+    align-items: center; /* Alinha verticalmente */
+    justify-content: center; /* Alinha horizontalmente */
+    height: 40px; /* Altura do contêiner */
+}
+
+/* Estilo da imagem de perfil */
+.profile-img {
+    width: 32px; /* Largura da imagem */
+    height: 32px; /* Altura da imagem */
+    border-radius: 50%; /* Deixa a imagem redonda */
+    object-fit: cover; /* Garante que a imagem cubra a área sem distorção */
+    border: 2px solid var(--primary-color); /* Borda da imagem */
+    transition: transform 0.3s ease, border-color 0.3s ease; /* Efeito de transição */
+}
+
+/* Efeito de hover na imagem de perfil */
+.profile-img:hover {
+    transform: scale(1.1); /* Aumenta o tamanho da imagem */
+}
+
+/* Conteúdo principal */
+.main-content {
+    display: grid; /* Usando grid layout */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Colunas adaptáveis */
+    gap: 20px; /* Espaçamento entre os itens */
+    padding: 40px; /* Padding interno */
+    margin: 0 auto; /* Centraliza o conteúdo */
+    max-width: calc(100% - 200px); /* Largura máxima */
+    margin-left: 80px; /* Margem à esquerda */
+    margin-right: 80px; /* Margem à direita */
+    margin-top: -20px; /* Ajusta a margem superior */
+}
+
+/* Estilo do cabeçalho dos resultados de pesquisa */
+.search-results-header {
+    margin: 20px 0; /* Margem superior e inferior */
+    text-align: left; /* Alinha o texto à esquerda */
+    font-size: 24px; /* Tamanho da fonte */
+    font-weight: bold; /* Deixa o texto em negrito */
+    color: var(--text-color); /* Cor do texto */
+    padding-left: 10px; /* Padding à esquerda */
+}
+
+/* Resultados da pesquisa */
+.search-results {
+    margin: 20px 0px; /* Margem superior e inferior */
+}
+
+/* Cartões de restaurantes */
+.restaurant-card {
+    background-color: var(--card-background-color); /* Cor de fundo */
+    border-radius: 12px; /* Bordas arredondadas */
+    overflow: hidden; /* Garante que os itens não ultrapassem o limite */
+    box-shadow: 0 4px 8px var(--shadow-color); /* Sombra sutil */
+    text-align: left; /* Alinha o texto à esquerda */
+    transition: transform 0.3s, box-shadow 0.3s; /* Transição suave */
+    text-decoration: none; /* Remove o sublinhado do link */
+    color: inherit; /* Herdar a cor do texto */
+    cursor: pointer; /* Cursor de pointer */
+    padding: 5px; /* Padding interno */
+    display: block; /* Display block para ocupar toda a largura */
+    position: relative; /* Posição relativa para ajustes internos */
+}
+
+/* Ajuste de largura dos cartões */
+.restaurant-card {
+    width: 100%; /* O card ocupa toda a largura */
+    box-sizing: border-box; /* Inclui o padding nas dimensões do cartão */
+}
+
+/* Efeito de hover nos cartões */
+.restaurant-card:hover {
+    transform: translateY(-5px); /* Move o card para cima */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Aumenta a sombra */
+    border: 2px solid var(--primary-color); /* Adiciona uma borda */
+    background-color: var(--hover-background-color); /* Altera a cor de fundo */
+}
+
+/* Imagem do restaurante dentro do cartão */
+.restaurant-card .image-container {
+    width: 100%; /* Ocupa toda a largura */
+    height: 130px; /* Define a altura */
+    overflow: hidden; /* Garante que a imagem não ultrapasse o limite */
+    border-radius: 12px; /* Bordas arredondadas */
+}
+
+/* Imagem dentro do card */
+.restaurant-card img {
+    width: 100%; /* Ocupa toda a largura */
+    height: 100%; /* Ocupa toda a altura */
+    object-fit: cover; /* A imagem cobre o espaço sem distorção */
+    transition: all 0.4s ease; /* Transição suave para transformações */
+}
+
+/* Efeito de hover na imagem */
+.restaurant-card img:hover {
+    transform: scale(1.05); /* Dá zoom na imagem */
+}
+
+/* Informações do restaurante dentro do cartão */
+.restaurant-card .info {
+    margin-top: 10px; /* Espaçamento superior */
+}
+
+/* Cabeçalho do restaurante (nome e avaliação) */
+.restaurant-card .info .header {
+    display: flex; /* Flexbox para alinhar os itens */
+    justify-content: space-between; /* Espaça os itens igualmente */
+    align-items: center; /* Alinha verticalmente */
+    margin-bottom: 8px; /* Espaçamento inferior */
+    margin-right: 10px; /* Margem à direita */
+    margin-left: 10px; /* Margem à esquerda */
+}
+
+/* Nome do restaurante */
+.restaurant-card .info .restaurant-name {
+    font-size: 18px; /* Tamanho da fonte */
+    font-weight: bold; /* Texto em negrito */
+    margin: 0; /* Remove as margens */
+}
+
+/* Avaliação do restaurante */
+.restaurant-card .info .rating {
+    display: flex; /* Flexbox para alinhar os itens */
+    align-items: center; /* Alinha verticalmente os itens */
+    justify-content: flex-end; /* Alinha os itens à direita */
+}
+
+.restaurant-card .info .rating .star-icon {
+    width: 16px; /* Largura do ícone */
+    height: 16 px; /* Altura do ícone */
+    margin-right: 5px; /* Espaço à direita */
+}
+
+.restaurant-card .info .rating-value {
+    font-size: 14px; /* Tamanho da fonte */
+    color: var(--text-color); /* Cor do texto */
+}
+
+/* Localização e intervalo de preços */
+.restaurant-card .info .location,
+.restaurant-card .info .price-range {
+    font-size: 14px; /* Tamanho da fonte */
+    color: var(--light-text-color); /* Cor do texto */
+    margin: 5px 0; /* Margem superior e inferior */
+    margin-right: 10px; /* Margem à direita */
+    margin-left: 10px; /* Margem à esquerda */
+}
+
+/* Categoria do restaurante */
+.restaurant-card .info .category {
+    font-size: 14px; /* Tamanho da fonte */
+    color: var(--primary-color); /* Cor da categoria */
+    margin-right: 10px; /* Margem à direita */
+    margin-left: 10px; /* Margem à esquerda */
+    margin-top: 10px; /* Margem superior */
+    margin-bottom: 0; /* Remove a margem inferior */
+    text-align: right; /* Alinha o texto à direita */
+    flex-grow: 1; /* Faz o item crescer para preencher o espaço */
+    display: flex; /* Flexbox para o layout */
+    align-items: flex-end; /* Alinha os itens na parte inferior */
+    justify-content: flex-end; /* Alinha o conteúdo à direita */
+}
+
+/* Responsividade para dispositivos menores */
+@media (max-width: 768px) {
+    /* Reduzindo o padding e o tamanho dos cartões */
+    .main-content {
+        padding: 20px;
+    }
+
+    .restaurant-card {
+        padding: 10px;
+    }
+
+    .restaurant-card img {
+        height: 120px; /* Menor altura para imagens */
+    }
+
+    /* Ocultando a barra de pesquisa */
+    .search-container {
+        display: none;
+    }
+
+    /* Alterando a estrutura da navbar */
+    .navbar {
+        flex-direction: column;
+        align-items: stretch;
+        height: auto;
+    }
+
+    /* Ajustando os botões de ação */
+    .user-actions {
+        justify-content: center;
+    }
+
+    .categories-carousel {
+        margin: 20px; /* Ajusta as margens para telas menores */
+    }
+    
+    .category-item {
+        flex: 0 0 140px; /* Aumenta a largura dos itens do carrossel */
+    }
+    
+    .category-image {
+        width: 100px; /* Aumenta a largura da imagem */
+        height: 100px; /* Aumenta a altura da imagem */
+    }
+}
+
+/* Estilo para o carrossel de categorias */
+.categories-carousel {
+    overflow: hidden; /* Esconde o conteúdo que ultrapassa o limite do carrossel */
+    position: relative; /* Permite posicionamento de elementos dentro do carrossel */
+    height: 150px; /* Define uma altura fixa para o carrossel */
+    margin: 10px 100px; /* Margem externa, com espaçamento nas laterais */
+    margin-bottom: -10px; /* Margem negativa para alinhar melhor com outros elementos */
+}
+
+/* Container que segura a faixa de itens do carrossel */
+.carousel-container {
+    position: relative; /* Para garantir que o conteúdo do carrossel seja posicionado em relação ao container */
+    overflow: hidden; /* Garante que o conteúdo não ultrapasse os limites do container */
+    width: 100%; /* Faz o container ocupar toda a largura disponível */
+    border-radius: 20px; /* Bordas arredondadas */
+}
+
+/* Faixa de itens dentro do carrossel */
+.carousel-track {
+    display: flex; /* Disposição flexível para alinhar os itens lado a lado */
+    transition: transform 0.8s ease-in-out; /* Transição suave para o movimento dos itens */
+    gap: 10px; /* Sem espaçamento entre os itens */
+    padding: 10px 0; /* Padding vertical para dar espaçamento interno */
+}
+
+/* Estilo de cada item dentro do carrossel */
+.category-item {
+    flex: 0 0 auto; /* Flex fixo, ou seja, os itens não vão se expandir nem encolher */
+    width: 110px; /* Largura fixa dos itens do carrossel */
+    text-align: center; /* Alinha o texto (ou conteúdo) dentro do item */
+    margin-right: 0; /* Remove a margem à direita */
+    margin-left: 0; /* Remove a margem à esquerda */
+}
+
+/* Link que envolve cada item da categoria */
+.category-link {
+    width: 90px; /* Largura fixa para o link */
+    height: 90px; /* Altura fixa para o link */
+    background-color: var(--background-color); /* Cor de fundo branca */
+    border-radius: 12px; /* Bordas arredondadas para o link */
+    overflow: hidden; /* Esconde o conteúdo que ultrapassar os limites */
+    box-shadow: 1 4px 8px var(--shadow-color); /* Sombra suave ao redor do link */
+    text-align: center; /* Alinha o texto dentro do link */
+    transition: transform 0.3s, box-shadow 0.3s; /* Transições suaves para o efeito de hover */
+    text-decoration: none; /* Remove o sublinhado do link */
+    color: inherit; /* Herda a cor do texto do elemento pai */
+    cursor: pointer; /* Altera o cursor para pointer quando o mouse passa sobre o link */
+    padding: 5px; /* Padding interno */
+    display: block; /* Faz o link se comportar como um bloco */
+    position: relative; /* Permite posicionamento de elementos dentro do link */
+    border: 1px solid #cdcdcc; /* Borda cinza ao redor do link */
+}
+
+/* Efeitos ao passar o mouse sobre o link de categoria */
+.category-link:hover {
+    transform: translateY(-5px); /* Move o link para cima */
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
+    border: 2px solid var(--primary-color); /* Borda de cor laranja ao passar o mouse */
+    background-color: var(--hover-background-color); /* Cor de fundo clara ao passar o mouse */
+}
+
+/* Estilo da imagem dentro do item de categoria */
+.category-image {
+    width: 60px; /* Largura fixa para a imagem */
+    height: 60px; /* Altura fixa para a imagem */
+    margin: 0 auto 5px; /* Centraliza a imagem horizontalmente e cria margem inferior */
+    overflow: hidden; /* Impede a imagem de ultrapassar o contêiner */
+    display: flex; /* Utiliza flexbox para centralizar a imagem */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    border-radius: 10px; /* Bordas arredondadas para a área da imagem */
+}
+
+/* Imagem dentro do link da categoria */
+.category-image img {
+    width: 100%; /* A imagem ocupa toda a largura do contêiner */
+    height: 100%; /* A imagem ocupa toda a altura do contêiner */
+    object-fit: cover; /* Garante que a imagem cubra toda a área sem distorcer */
+    border-radius: 0; /* Remove qualquer borda arredondada da própria imagem */
+}
+
+/* Nome da categoria */
+.category-name {
+    font-size: 12px; /* Tamanho de fonte pequeno */
+    font-weight: 500; /* Peso médio da fonte */
+    color: var(--text-color); /* Cor escura para o texto */
+    display: block; /* Faz o nome ocupar uma linha inteira */
+    margin-top: 5px; /* Margem superior para espaçar o nome da imagem */
+}
+
+/* Efeitos de hover no nome da categoria */
+.category-link:hover .category-name {
+    color: var(--primary-color); /* Muda a cor do nome para laranja ao passar o mouse */
+    transition: color 0.1s ease; /* Suaviza a transição de cor */
+}
+
+/* Efeitos de hover na imagem da categoria */
+.category-link:hover .category-image img {
+    transform: scale(1.1); /* Dá um zoom leve na imagem */
+    transition: transform 0.3s ease; /* Suaviza o efeito de zoom */
+}
+
+/* Estilo para os botões de navegação do carrossel */
+.carousel-button {
+    position: absolute; /* Posiciona os botões absolutamente dentro do carrossel */
+    top: 50%; /* Alinha verticalmente no meio */
+    transform: translateY(-50%); /* Ajusta para que o centro do botão esteja exatamente no meio */
+    width: 40px; /* Largura dos botões */
+    height: 40px; /* Altura dos botões */
+    border-radius: 50%; /* Botões circulares */
+    background-color: var(--background-color); /* Cor de fundo branca */
+    border: 1px solid #ddd; /* Borda cinza ao redor do botão */
+    display: flex; /* Flexbox para centralizar o conteúdo do botão */
+    align-items: center; /* Alinha o conteúdo verticalmente no meio */
+    justify-content: center; /* Alinha o conteúdo horizontalmente no meio */
+    cursor: pointer; /* Muda o cursor para pointer quando o mouse passa sobre o botão */
+    z-index: 10; /* Garante que o botão fique sobre os outros elementos */
+    transition: all 0.3s ease; /* Transição suave para o hover */
+}
+
+/* Efeitos de hover nos botões de navegação */
+.carousel-button:hover {
+    background-color: var(--primary-color); /* Fundo laranja ao passar o mouse */
+    color: white; /* Cor do texto (ou ícone) branco */
+    border-color: var(--primary-color); /* Borda laranja */
+}
+
+/* Botão de navegação "anterior" */
+.carousel-button.prev {
+    left: 0; /* Posiciona o botão na extremidade esquerda */
+}
+
+/* Botão de navegação "próximo" */
+.carousel-button.next {
+    right: 0; /* Posiciona o botão na extremidade direita */
+}
+
+/* Footer */
+footer {
+    background-color: var(--background-color); /* Cor de fundo */
+    padding: 20px; /* Padding interno */
+    text-align: center; /* Alinha o texto ao centro */
+    border-top: 1px solid var(--border-color); /* Borda superior */
+    margin-top: 20px; /* Margem superior */
+    margin-left: 100px; /* Margem à esquerda */
+    margin-right: 100px; /* Margem à direita */
+}
+
+
+
+/* Estilo para o fundo do modal */
+.modal {
+    display: none; /* Oculto por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Estilo para o conteúdo do modal */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    position: relative;
+}
+
+/* Botão de fechar */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+}
