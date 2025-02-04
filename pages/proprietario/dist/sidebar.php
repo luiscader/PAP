@@ -167,8 +167,8 @@
       </a>
       <div class="collapse" id="categorias">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="#">Criar Categoria</a></li>
-          <li class="nav-item"> <a class="nav-link" href="categorias.php">Categoria</a></li>
+          <li class="nav-item"> <a class="nav-link" href="criar_categoria.php">Criar Categoria</a></li>
+          <li class="nav-item"> <a class="nav-link" href="categorias.php">Categorias</a></li>
         </ul>
       </div>
     </li>
