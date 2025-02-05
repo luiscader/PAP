@@ -150,17 +150,17 @@ CREATE TABLE IF NOT EXISTS `pratos` (
   KEY `fk_id_restaurante` (`id_restaurante`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE IF NOT EXISTS `produto` (
+CREATE TABLE IF NOT EXISTS `produtos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `descricao` text,
   `quantidade` decimal(10,2) NOT NULL,
   `unidade_medida` enum('Kg','Gr','L','Ml','Unidade') NOT NULL,
   `id_categoria` int DEFAULT NULL,
-  `id_restaurante` int DEFAULT NULL,
-  `id_fornecedor` int DEFAULT NULL,
   `data_criacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `data_atualizacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id_restaurante` int DEFAULT NULL,
+  `id_fornecedor` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_categoria` (`id_categoria`),
   KEY `id_restaurante` (`id_restaurante`),

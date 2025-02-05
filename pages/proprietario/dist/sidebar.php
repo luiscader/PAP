@@ -129,16 +129,13 @@
         <span class="menu-icon">
           <i class="mdi mdi-bulletin-board"></i>
         </span>
-        <span class="menu-title">Rservas de Mesa</span>
+        <span class="menu-title">Reservas de Mesa</span>
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse" id="gestao">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="#">Criar Reservas de Mesa</a></li>
           <li class="nav-item"> <a class="nav-link" href="#">Reservas de Mesa</a></li>
-          <li class="nav-item"> <a class="nav-link" href="#.php">Categoria</a></li>
-          <li class="nav-item"> <a class="nav-link" href="#">Produtos</a></li>
-          <li class="nav-item"> <a class="nav-link" href="#">Pratos</a></li>
         </ul>
       </div>
     </li>
@@ -182,8 +179,8 @@
       </a>
       <div class="collapse" id="produtos">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="#">Criar Produtos</a></li>
-          <li class="nav-item"> <a class="nav-link" href="#">Produtos</a></li>
+          <li class="nav-item"> <a class="nav-link" href="criar_produto.php">Criar Produtos</a></li>
+          <li class="nav-item"> <a class="nav-link" href="produtos.php">Produtos</a></li>
         </ul>
       </div>
     </li>
@@ -197,8 +194,8 @@
       </a>
       <div class="collapse" id="pratos">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="#">Criar Pratos</a></li>
-          <li class="nav-item"> <a class="nav-link" href="#">Pratos</a></li>
+          <li class="nav-item"> <a class="nav-link" href="criar_prato.php">Criar Pratos</a></li>
+          <li class="nav-item"> <a class="nav-link" href="pratos.php">Pratos</a></li>
         </ul>
       </div>
     </li>
