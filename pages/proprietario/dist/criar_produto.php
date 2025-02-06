@@ -10,11 +10,28 @@ if (!isset($_SESSION['id'])) {
 
 $id_cliente = $_SESSION['id'];
 
-// Get user info
+// Get user info and restaurant info
 $sql = "SELECT u.id, u.nome, u.email, u.tipo, r.id as id_restaurante 
         FROM Utilizador u 
         LEFT JOIN restaurante r ON r.id_proprietario = u.id 
         WHERE u.id = ?";
+
+if ($stmt = $conn->prepare($sql)) {
+    $stmt->bind_param("i", $id_cliente);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $id = $row['id'];
+        $nome_usuario = $row['nome'];
+        $email = $row['email'];
+        $tipo = $row['tipo'];
+        $id_restaurante = $row['id_restaurante'];
+    } else {
+        echo "Utilizador não encontrado.";
+        exit();
+    }
+    $stmt->close();
+}
 
 $sql = "SELECT id, nome, email, senha, tipo FROM Utilizador WHERE id = ?";
 if ($stmt = $conn->prepare($sql)) {
@@ -31,28 +48,61 @@ if ($stmt = $conn->prepare($sql)) {
     $stmt->close();
 }
 
+// Get categories for dropdown
+$categorias = [];
+$sql = "SELECT id, nome FROM categoria WHERE id_restaurante = ?";
+if ($stmt = $conn->prepare($sql)) {
+    $stmt->bind_param("i", $id_restaurante);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $categorias[] = $row;
+    }
+    $stmt->close();
+}
+
+// Get fornecedores for dropdown - Updated to use correct column name 'empresa'
+$fornecedores = [];
+$sql = "SELECT f.id, f.empresa 
+        FROM fornecedor f 
+        INNER JOIN restaurante_fornecedor rf ON f.id = rf.id_fornecedor 
+        WHERE rf.id_restaurante = ?";
+if ($stmt = $conn->prepare($sql)) {
+    $stmt->bind_param("i", $id_restaurante);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $fornecedores[] = $row;
+    }
+    $stmt->close();
+}
+
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = trim($_POST['name']);
     $descricao = trim($_POST['comment']);
+    $quantidade = trim($_POST['quantidade']);
+    $unidade_medida = $_POST['unidade_medida'];
+    $id_categoria = $_POST['categoria'];
+    $id_fornecedor = $_POST['fornecedor'];
     
     // Validate input
-    if (empty($nome)) {
-        $error = "O nome da categoria é obrigatório.";
+    if (empty($nome) || empty($quantidade) || empty($unidade_medida)) {
+        $error = "Os campos nome, quantidade e unidade de medida são obrigatórios.";
     } else {
-        // Insert new category
-        $sql = "INSERT INTO categoria (nome, descricao, id_restaurante) VALUES (?, ?, ?)";
+        // Insert new product
+        $sql = "INSERT INTO produtos (nome, descricao, quantidade, unidade_medida, id_categoria, id_restaurante, id_fornecedor) 
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         if ($stmt = $conn->prepare($sql)) {
-            $stmt->bind_param("ssi", $nome, $descricao, $id_restaurante);
+            $stmt->bind_param("ssdssii", $nome, $descricao, $quantidade, $unidade_medida, $id_categoria, $id_restaurante, $id_fornecedor);
             
             if ($stmt->execute()) {
-                $success = "Categoria criada com sucesso!";
-                // Redirect to categories list or show success message
-                header("Location: listar_categorias.php");
+                $success = "Produto criado com sucesso!";
+                header("Location: produtos.php");
                 exit();
             } else {
-                $error = "Erro ao criar categoria: " . $conn->error;
+                $error = "Erro ao criar produto: " . $conn->error;
             }
             
             $stmt->close();
@@ -68,7 +118,7 @@ $conn->close();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Criar Categoria</title>
+    <title>Criar Produto</title>
     
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
@@ -89,7 +139,7 @@ $conn->close();
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Gestão</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Criar Categoria</li>
+                                <li class="breadcrumb-item active" aria-current="page">Criar Produto</li>
                             </ol>
                         </nav>
                     </div>
@@ -116,25 +166,46 @@ $conn->close();
                                             </div>
                                             <div class="form-group">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder="Quantidade" aria-label="Amount (to the nearest dollar)">
-                                                    <select class="form-select">
-                                                    <option>Male</option>
-                                                    <option>Female</option>
-                                                </select>
+                                                    <input type="number" step="0.01" class="form-control" name="quantidade" placeholder="Quantidade" required>
+                                                    <select class="form-select" name="unidade_medida" required>
+                                                        <option value="Kg">Kg</option>
+                                                        <option value="Gr">Gr</option>
+                                                        <option value="L">L</option>
+                                                        <option value="Ml">Ml</option>
+                                                        <option value="Unidade">Unidade</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Categoria</label>
-                                                    <div class="col-sm-9">
-                                                    <select class="form-select">
-                                                        <option>Male</option>
-                                                        <option>Female</option>
-                                                    </select>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label">Categoria</label>
+                                                        <div class="col-sm-9">
+                                                            <select class="form-select" name="categoria" required>
+                                                                <option value="">Selecione uma categoria...</option>
+                                                                <?php foreach ($categorias as $categoria): ?>
+                                                                    <option value="<?php echo $categoria['id']; ?>"><?php echo htmlspecialchars($categoria['nome']); ?></option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label">Fornecedor</label>
+                                                        <div class="col-sm-9">
+                                                            <select class="form-select" name="fornecedor" required>
+                                                                <option value="">Selecione um fornecedor...</option>
+                                                                <?php foreach ($fornecedores as $fornecedor): ?>
+                                                                    <option value="<?php echo $fornecedor['id']; ?>"><?php echo htmlspecialchars($fornecedor['empresa']); ?></option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                            </div>
                                             <input class="btn btn-inverse-primary" type="submit" value="Criar Produto">
                                         </fieldset>
                                     </form>

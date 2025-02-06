@@ -11836,7 +11836,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "A mostrar 0 a 0 de 0 items",
+			"sInfoEmpty": "Mostrar 0 a 0 de 0 items",
 	
 	
 			/**
@@ -11976,7 +11976,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "A mostrar _MENU_ items",
+			"sLengthMenu": "Mostrar _MENU_ items",
 	
 	
 			/**
