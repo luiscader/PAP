@@ -1,8 +1,5 @@
 <?php
-// Inclui a configuração do banco de dados
-include 'C:/wamp64/www/PAP/includes/config.php';  // Certifique-se de que este caminho esteja correto para o seu arquivo config.php
-
-// Inicializa variáveis de erro e sucesso
+include 'C:/wamp64/www/PAP/includes/config.php';
 $erro = "";
 $sucesso = "";
 $nome = "";
@@ -15,10 +12,8 @@ $distrito = "";
 $morada = "";
 $codigo_postal = "";
 
-// Define o tipo de usuário automaticamente como 'cliente'
 $tipo = 'cliente';
 
-// Verifica se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST['nome'];
     $email = $_POST['email'];
@@ -32,13 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $senha = $_POST['password'];
     $confirmar_senha = $_POST['confirm_password'];
 
-    // Validação básica
     if (empty($nome) || empty($email) || empty($telefone) || empty($senha) || empty($confirmar_senha)) {
         $erro = "Todos os campos obrigatórios devem ser preenchidos.";
     } elseif ($senha !== $confirmar_senha) {
         $erro = "As senhas não coincidem.";
     } else {
-        // Verifica se o email já está registrado
         $sql = "SELECT id FROM utilizador WHERE email = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $email);
@@ -48,7 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->num_rows > 0) {
             $erro = "O email já está registrado.";
         } else {
-            // Verifica se o telefone já está registrado
             $sql_telefone = "SELECT id FROM utilizador WHERE telefone = ?";
             $stmt_telefone = $conn->prepare($sql_telefone);
             $stmt_telefone->bind_param("s", $telefone);
@@ -58,10 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($stmt_telefone->num_rows > 0) {
                 $erro = "O número de telefone já está registrado.";
             } else {
-                // Hash da senha
                 $hash_senha = password_hash($senha, PASSWORD_BCRYPT);
 
-                // Insere o novo usuário na base de dados (inclui campos novos)
                 $sql = "INSERT INTO utilizador (nome, email, telefone, senha, tipo, data_nascimento, nif, pais, distrito, morada, codigo_postal) 
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 $stmt = $conn->prepare($sql);
@@ -85,9 +75,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registro - Restomate</title>
+    <link rel="shortcut icon" href="../geral/assets/images/favicon.png" />
     <style>
         * {
             margin: 0;
@@ -305,7 +296,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         })
         .catch(error => console.error('Erro ao carregar a lista de países:', error));
 
-    // Busca informações de endereço com a API Zippopotam.us ao preencher o campo de código postal
     const codigoPostalInput = document.getElementById('codigo_postal');
     codigoPostalInput.addEventListener('blur', buscarEndereco);
     
@@ -373,13 +363,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         togglePassword.addEventListener('click', function() {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
-            this.textContent = type === 'password' ? '👁️‍🗨️' : '👁️‍🗨️'; // Altera o ícone
+            this.textContent = type === 'password' ? '👁️‍🗨️' : '👁️‍🗨️';
         });
 
         toggleConfirmPassword.addEventListener('click', function() {
             const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             confirmPasswordInput.setAttribute('type', type);
-            this.textContent = type === 'password' ? '👁️‍🗨️' : '👁️‍🗨️'; // Altera o ícone
+            this.textContent = type === 'password' ? '👁️‍🗨️' : '👁️‍🗨️';
         });
 </script>
 </body>

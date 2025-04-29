@@ -1,3 +1,3 @@
 <footer>
-      <p>&copy; 2024 Restomate. Todos os direitos reservados.</p>
+      <p>&copy; 2025 Restomate. Todos os direitos reservados.</p>
   </footer>

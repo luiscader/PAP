@@ -1,0 +1,17 @@
+.card-body .row {
+margin: 0;
+}
+
+.icon-box-success,
+.icon-box-danger,
+.icon-box-warning {
+margin-left: -15px;
+}
+
+.icon-item {
+font-size: 1.5rem; 
+}
+
+.card-body h3 {
+margin-right: 5px;
+}

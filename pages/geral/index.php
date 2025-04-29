@@ -3,17 +3,14 @@ session_start();
 include 'C:/wamp64/www/PAP/includes/config.php';
 include 'navbar.php';
 
-// Inicializa variáveis
 $nome_usuario = '';
 $tipo_usuario = '';
 
-// Verifica se o usuário está autenticado
 if (isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
     $tipo_usuario = $_SESSION['tipo'];
     $id_restaurante = $_SESSION['id_restaurante'] ?? null;
 
-    // Consulta SQL para obter o nome do usuário
     $sql = "SELECT nome FROM Utilizador WHERE id = ?";
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("i", $id);
@@ -31,7 +28,6 @@ if (isset($_SESSION['id'])) {
     }
 }
 
-// Consulta para obter todas as categorias de cozinha
 $sql_categories = "SELECT id, nome, foto_categoria_link FROM tipocozinha ORDER BY nome";
 $result_categories = $conn->query($sql_categories);
 $categories = [];
@@ -42,11 +38,9 @@ if ($result_categories->num_rows > 0) {
     }
 }
 
-// Captura o termo de pesquisa e o distrito
 $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
-$distrito_id = isset($_GET['distrito']) ? intval($_GET['distrito']) : null;
+$distrito = isset($_GET['district']) && $_GET['district'] !== '' ? $_GET['district'] : null;
 
-// Consulta para listar os restaurantes
 $sql = "
     SELECT 
         r.id, 
@@ -65,13 +59,12 @@ $sql = "
     WHERE r.status = 'ativo'
 ";
 
-// Adiciona as condições de pesquisa, se existirem
 if (!empty($searchTerm)) {
     $sql .= " AND (r.nome_empresa LIKE ? OR tc.nome LIKE ?)";
 }
 
-if ($distrito_id) {
-    $sql .= " AND r.distrito_id = ?";
+if ($distrito) {
+    $sql .= " AND r.distrito = ?";
 }
 
 $sql .= "
@@ -80,20 +73,19 @@ $sql .= "
 
 $stmt = $conn->prepare($sql);
 
-if (!empty($searchTerm) && $distrito_id) {
+if (!empty($searchTerm) && $distrito) {
     $searchParam = '%' . $searchTerm . '%';
-    $stmt->bind_param("ssi", $searchParam, $searchParam, $distrito_id);
+    $stmt->bind_param("sss", $searchParam, $searchParam, $distrito);
 } elseif (!empty($searchTerm)) {
     $searchParam = '%' . $searchTerm . '%';
     $stmt->bind_param("ss", $searchParam, $searchParam);
-} elseif ($distrito_id) {
-    $stmt->bind_param("i", $distrito_id);
+} elseif ($distrito) {
+    $stmt->bind_param("s", $distrito);
 }
 
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Criando um array para os restaurantes
 $restaurantes = [];
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -109,10 +101,6 @@ if ($result->num_rows > 0) {
         ];
     }
 }
-
-// Consulta para listar os distritos
-$sql_distritos = "SELECT id, nome FROM distritos";
-$result_distritos = $conn->query($sql_distritos);
 ?>
 
 <!DOCTYPE html>
@@ -123,83 +111,98 @@ $result_distritos = $conn->query($sql_distritos);
     <title>Restomate - Bem-vindo</title>
     <link rel="stylesheet" href="assets/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../geral/assets/images/favicon.png" />
 </head>
 <body>
-  <!-- Carrossel de Categorias -->
-  <div class="categories-carousel">
-    <div class="carousel-container">
-        <button class="carousel-button prev">
-            <i class="fas fa-chevron-left"></i>
-        </button>
-        <div class="carousel-track">
-            <?php foreach ($categories as $category): ?>
-                <div class="category-item">
-                    <a href="?search=<?php echo urlencode($category['nome']); ?>" class="category-link">
-                    <div class="category-image">
-                        <?php if (!empty($category['foto_categoria_link'])): ?>
-                            <!-- Usando o caminho completo da imagem do banco de dados -->
-                            <img src="<?php echo htmlspecialchars($category['foto_categoria_link']); ?>" alt="<?php echo htmlspecialchars($category['nome']); ?>">
-                        <?php else: ?>
-                            <img src="../assets/images/default-category.jpg" 
-                                alt="<?php echo htmlspecialchars($category['nome']); ?>">
-                        <?php endif; ?>
-                    </div>
-                        <span class="category-name"><?php echo htmlspecialchars($category['nome']); ?></span>
-                    </a>
-                </div>
-            <?php endforeach; ?>
-        </div>
-        <button class="carousel-button next">
-            <i class="fas fa-chevron-right"></i>
-        </button>
-    </div>
-  </div>
 
-    <?php if (empty($searchTerm)): ?>
+
+    <div class="categories-carousel">
+        <div class="carousel-container">
+            <button class="carousel-button prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-track">
+                <?php foreach ($categories as $category): ?>
+                    <div class="category-item">
+                        <a href="?search=<?php echo urlencode($category['nome']); ?>" class="category-link">
+                            <div class="category-image">
+                                <?php if (!empty($category['foto_categoria_link'])): ?>
+                                    <img src="<?php echo htmlspecialchars($category['foto_categoria_link']); ?>" alt="<?php echo htmlspecialchars($category['nome']); ?>">
+                                <?php else: ?>
+                                    <img src="assets/images/default-category.jpg" alt="<?php echo htmlspecialchars($category['nome']); ?>">
+                                <?php endif; ?>
+                            </div>
+                            <span class="category-name"><?php echo htmlspecialchars($category['nome']); ?></span>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <button class="carousel-button next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <?php if (empty($searchTerm) && empty($distrito)): ?>
         <h2>Restaurantes Populares</h2>
     <?php endif; ?>
 
-  <?php if (!empty($searchTerm)): ?>
-    <div class="search-results">
-        <h2 >Resultados para: "<?php echo htmlspecialchars($searchTerm); ?>"</h2>
-    </div>
-<?php endif; ?>
+    <?php if (!empty($searchTerm) || !empty($distrito)): ?>
+        <div class="search-results">
+            <h2>Resultados para: 
+                <?php 
+                if (!empty($searchTerm) && !empty($distrito)) {
+                    echo "\"".htmlspecialchars($searchTerm)."\" em ".htmlspecialchars($distrito);
+                } elseif (!empty($searchTerm)) {
+                    echo "\"".htmlspecialchars($searchTerm)."\"";
+                } elseif (!empty($distrito)) {
+                    echo "Distrito: ".htmlspecialchars($distrito);
+                }
+                ?>
+            </h2>
+        </div>
+    <?php endif; ?>
 
     <main class="main-content">
         <?php
-            if (!empty($restaurantes)) {
-                foreach ($restaurantes as $id => $restaurante) {
-                    echo "<a href='detalhes_restaurante.php?id=" . $id . "' class='restaurant-card'>";
-                    echo "<div class='image-container'>";
-                    echo !empty($restaurante['imagem'])
-                        ? "<img src='" . htmlspecialchars($restaurante['imagem']) . "' alt='Imagem do restaurante'>"
-                        : "<img src='assets/images/default-image.jpg' alt='Imagem não disponível'>";
-                    echo "</div>";
-                    echo "<div class='info'>";
-                    echo "<div class='header'>";
-                    echo "<h2 class='restaurant-name'>" . htmlspecialchars($restaurante['nome_empresa']) . "</h2>";
-                    echo "<div class='rating'>";
-                    echo "<img src='assets/images/star.png' alt='Estrela' class='star-icon'>";
-                    echo "<span class='rating-value'>" . $restaurante['media_avaliacoes'] . " / 5</span>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "<p class='location'>" . htmlspecialchars($restaurante['codigo_postal']) . ", " . htmlspecialchars($restaurante['distrito']) . "</p>";
-                    echo "<p class='price-range'>Preço médio: " . htmlspecialchars($restaurante['intervalo_precos']) . " €</p>";
-                    echo "<p><span class='category'>" . htmlspecialchars($restaurante['tipo_cozinha']) . "</span></p>";
-                    echo "</div>";
-                    echo "</a>";
-                }
-            } else {
-                echo "<p>Nenhum restaurante encontrado para o termo '<strong>" . htmlspecialchars($searchTerm) . "</strong>'.</p>";
+        if (!empty($restaurantes)) {
+            foreach ($restaurantes as $id => $restaurante) {
+                echo "<a href='detalhes_restaurante.php?id=" . $id . "' class='restaurant-card'>";
+                echo "<div class='image-container'>";
+                echo !empty($restaurante['imagem'])
+                    ? "<img src='" . htmlspecialchars($restaurante['imagem']) . "' alt='Imagem do restaurante'>"
+                    : "<img src='assets/images/default-image.jpg' alt='Imagem não disponível'>";
+                echo "</div>";
+                echo "<div class='info'>";
+                echo "<div class='header'>";
+                echo "<h2 class='restaurant-name'>" . htmlspecialchars($restaurante['nome_empresa']) . "</h2>";
+                echo "<div class='rating'>";
+                echo "<img src='assets/images/star.png' alt='Estrela' class='star-icon'>";
+                echo "<span class='rating-value'>" . $restaurante['media_avaliacoes'] . " / 5</span>";
+                echo "</div>";
+                echo "</div>";
+                echo "<p class='location'>" . htmlspecialchars($restaurante['codigo_postal']) . ", " . htmlspecialchars($restaurante['distrito']) . "</p>";
+                echo "<p class='price-range'>Preço médio: " . htmlspecialchars($restaurante['intervalo_precos']) . " €</p>";
+                echo "<p><span class='category'>" . htmlspecialchars($restaurante['tipo_cozinha']) . "</span></p>";
+                echo "</div>";
+                echo "</a>";
             }
+        } else {
+            echo "<p>Nenhum restaurante encontrado";
+            if (!empty($searchTerm)) {
+                echo " para o termo '<strong>" . htmlspecialchars($searchTerm) . "</strong>'";
+            }
+            if (!empty($distrito)) {
+                echo " no distrito '<strong>" . htmlspecialchars($distrito) . "</strong>'";
+            }
+            echo ".</p>";
+        }
         ?>
-  </main>
+    </main>
 
-  <?php include 'footer.php'; ?>
+    <?php include 'footer.php'; ?>
 
-
-  <!-- JavaScript para o carrossel -->
-  <script>
+    <script>
     document.addEventListener('DOMContentLoaded', function() {
         const track = document.querySelector('.carousel-track');
         const prevButton = document.querySelector('.carousel-button.prev');
@@ -216,7 +219,7 @@ $result_distritos = $conn->query($sql_distritos);
             const containerWidth = track.parentElement.clientWidth;
             const visibleItems = Math.floor(containerWidth / itemWidth);
             position += visibleItems * itemWidth;
-            position = Math.min(position, 0); // Garante que não ultrapasse o início
+            position = Math.min(position, 0);
             track.style.transform = `translateX(${position}px)`;
             updateButtons();
         });
@@ -229,7 +232,6 @@ $result_distritos = $conn->query($sql_distritos);
             const maxScroll = -(track.scrollWidth - containerWidth);
             position -= visibleItems * itemWidth;
 
-            // Ajusta a posição para não cortar o último item
             if (Math.abs(position) > Math.abs(maxScroll)) {
                 position = maxScroll;
             }
@@ -238,10 +240,9 @@ $result_distritos = $conn->query($sql_distritos);
             updateButtons();
         });
 
-    updateButtons();
-    window.addEventListener('resize', updateButtons);
-});
-
-  </script>
+        updateButtons();
+        window.addEventListener('resize', updateButtons);
+    });
+    </script>
 </body>
 </html>

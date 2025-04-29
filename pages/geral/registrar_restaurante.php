@@ -2,21 +2,18 @@
 include 'C:/wamp64/www/PAP/includes/config.php'; 
 include 'C:/wamp64/www/PAP/includes/atualizar_tipo_usuario.php'; 
 
-session_start(); // Inicia a sessão
+session_start();
 
-// Verifica se o usuário está autenticado
 if (!isset($_SESSION['id'])) {
     header("Location: login.php"); 
     exit();
 }
 
-// Verifica se o usuário é cliente
 if ($_SESSION['tipo'] != 'cliente') {
     echo "Acesso negado. Somente clientes podem registrar um restaurante.";
     exit();
 }
 
-// Carregar os tipos de gastronomia
 $sql_tipos_gastronomia = "SELECT id, nome FROM TipoCozinha";
 $result_tipos_gastronomia = $conn->query($sql_tipos_gastronomia);
 
@@ -25,7 +22,6 @@ if ($result_tipos_gastronomia === FALSE) {
     exit();
 }
 
-// Registro de Restaurante
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['registrar_restaurante'])) {
     $nome_restaurante = $_POST['nome_restaurante'] ?? null;
     $nif_restaurante = $_POST['nif_restaurante'] ?? null;
@@ -40,24 +36,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['registrar_restaurante'
     $titular_conta = $_POST['titular_conta'] ?? null;
     $email_contato = $_POST['email_contato'] ?? null;
     $numero_contato = $_POST['numero_contato'] ?? null;
-    $tipos_gastronomia = $_POST['tipos_gastronomia'] ?? []; // Recebe os tipos de gastronomia selecionados
-    $id_proprietario = $_SESSION['id']; // Usa o ID do usuário logado
+    $tipos_gastronomia = $_POST['tipos_gastronomia'] ?? [];
+    $id_proprietario = $_SESSION['id'];
 
-    // Validações adicionais
     if (!$nome_restaurante || !$nif_restaurante || !$designacao_legal || !$morada_restaurante || !$codigo_postal_restaurante || !$distrito_restaurante || !$pais_restaurante || !$telefone_restaurante || !$nome_banco || !$iban || !$titular_conta || !$email_contato || !$numero_contato || empty($tipos_gastronomia)) {
         $erro = "Todos os campos obrigatórios devem ser preenchidos.";
     } else {
-        // Inserção na tabela Restaurante
         $sql_restaurante = "INSERT INTO Restaurante 
             (nome_empresa, nif, designacao_legal, morada, codigo_postal, distrito, pais, telefone, email_contato, numero_contato, nome_banco, iban, titular_conta, id_proprietario) 
             VALUES 
             ('$nome_restaurante', '$nif_restaurante', '$designacao_legal', '$morada_restaurante', '$codigo_postal_restaurante', '$distrito_restaurante', '$pais_restaurante', '$telefone_restaurante', '$email_contato', '$numero_contato', '$nome_banco', '$iban', '$titular_conta', '$id_proprietario')";
 
         if ($conn->query($sql_restaurante) === TRUE) {
-            // Recupera o ID do restaurante inserido
             $id_restaurante = $conn->insert_id;
 
-            // Inserir associações na tabela intermediária Restaurante_TipoCozinha
             if (!empty($tipos_gastronomia)) {
                 foreach ($tipos_gastronomia as $id_tipo) {
                     if (is_numeric($id_tipo)) {
@@ -67,15 +59,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['registrar_restaurante'
                 }
             }
 
-            // Atualiza a tabela Utilizador com o ID do restaurante
             $sql_update_utilizador = "UPDATE Utilizador SET id_restaurante = '$id_restaurante' WHERE id = '$id_proprietario'";
             if ($conn->query($sql_update_utilizador) === TRUE) {
-                // Atualiza o tipo de usuário para 'proprietario'
                 if (atualizar_tipo_usuario($conn, $id_proprietario, 'proprietario')) {
-                    // Finaliza a sessão do usuário e redireciona para a página de login
-                    session_unset(); // Limpa a sessão
-                    session_destroy(); // Destroi a sessão
-                    header("Location: login.php?msg=registro_sucesso"); // Redireciona com uma mensagem opcional
+
+                    session_unset();
+                    session_destroy();
+                    header("Location: login.php?msg=registro_sucesso");
                     exit();
                 } else {
                     echo "Erro ao atualizar o tipo de usuário.";
@@ -99,7 +89,6 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Restaurante</title>
     <style>
-        /* Estilos gerais do formulário */
         * {
             margin: 0;
             padding: 0;
@@ -192,7 +181,6 @@ $conn->close();
             margin-bottom: 10px;
         }
 
-        /* Ajustando o container da checkbox */
         .checkbox-container {
             width: 100%;
             max-height: 200px;
@@ -296,7 +284,6 @@ $conn->close();
 
 
 <script>
-    // Preenche a lista de países usando a API RestCountries
     fetch('https://restcountries.com/v3.1/all?fields=name,tld')
         .then(response => response.json())
         .then(data => {
@@ -311,7 +298,6 @@ $conn->close();
         })
         .catch(error => console.error('Erro ao carregar a lista de países:', error));
 
-    // Busca informações de endereço com a API Zippopotam.us ao preencher o campo de código postal
     const codigoPostalInput = document.getElementById('codigo_postal');
     codigoPostalInput.addEventListener('blur', buscarEndereco);
     

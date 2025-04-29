@@ -1,567 +1,559 @@
 :root {
-    --primary-color: #ff5722; /* Cor principal */
-    --secondary-color: #e64a19; /* Cor secundária */
-    --background-color: #ffffff; /* Cor de fundo */
-    --text-color: #333; /* Cor do texto */
-    --light-text-color: #555; /* Cor do texto claro */
-    --border-color: #ebebeb; /* Cor da borda */
-    --shadow-color: rgba(0, 0, 0, 0.1); /* Cor da sombra */
-    --hover-background-color: #fff7ed; /* Cor de fundo ao passar o mouse */
-    --card-background-color: #ffffff; /* Cor de fundo dos cartões */
+  --primary-color: #ff5722;
+  --secondary-color: #e64a19;
+  --background-color: #ffffff;
+  --text-color: #333;
+  --light-text-color: #555;
+  --border-color: #ebebeb;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --hover-background-color: #fff7ed;
+  --card-background-color: #ffffff;
 }
 
 body {
-    margin: 0; /* Remove a margem padrão */
-    font-family: Arial, sans-serif; /* Define a fonte */
-    background-color: var(--background-color); /* Cor de fundo */
-    overflow-x: hidden; /* Evita barra de rolagem horizontal */
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  overflow-x: hidden;
 }
 
 h2 {
-    margin-left: 100px; /* Margem à esquerda */
-    margin-right: 100px; /* Margem à direita */
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
-/* Navbar - Definição do estilo da barra de navegação */
 .navbar {
-    display: flex; /* Usando flexbox para o layout */
-    justify-content: space-between; /* Espaça os itens igualmente */
-    align-items: center; /* Alinha verticalmente os itens */
-    background-color: var(--background-color); /* Cor de fundo */
-    padding: 10px 20px; /* Padding interno */
-    border-bottom: 1px solid var(--border-color); /* Linha de separação na parte inferior */
-    height: 80px; /* Altura da navbar */
-    position: sticky; /* Fixa a navbar no topo */
-    top: 0; /* Fixa no topo da tela */
-    z-index: 1000; /* Define a prioridade de empilhamento */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background-color);
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border-color);
+  height: 80px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-/* Estilo para o link do logo */
-.logo a {
-    text-decoration: none; /* Remove o sublinhado do link */
-    color: inherit; /* Herdar a cor do texto */
-    display: flex; /* Flexbox para alinhar os itens */
-    align-items: center; /* Alinha verticalmente o conteúdo */
+.search-bar .location-select {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  color: var(--light-text-color);
+  padding-right: 15px;
+  border-right: 2px solid #ccc;
+  position: relative;
 }
 
-/* Definindo as dimensões do logo */
-.logo img {
-    width: 60px; /* Largura do logo */
-    height: 60px; /* Altura do logo */
-    margin-right: 10px; /* Margem à direita do logo */
+.search-bar .location-select i {
+  margin-right: 15px;
+  font-size: 16px;
+  color: var(--primary-color);
 }
 
-/* Estilo do nome do logo */
-.logo span {
-    font-size: 25px; /* Tamanho da fonte */
-    font-weight: bold; /* Deixa o texto em negrito */
-    color: var(--text-color); /* Cor do texto */
+.search-bar .location-select select {
+  width: 100%;
+  height: 40px;
+  border: none;
+  background-color: transparent;
+  color: var(--text-color);
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  padding: 0 25px 0 5px;
 }
 
-/* Barra de pesquisa */
+.search-bar .location-select select:focus {
+  color: var(--primary-color);
+  background-color: var(--hover-background-color);
+}
+
+.search-bar .location-select::after {
+  content: "\25BC";
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: var(--light-text-color);
+  pointer-events: none;
+}
+
+.search-bar .location-select select option {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  padding: 10px;
+}
+
 .search-bar {
-    margin-top: 20px; /* Margem no topo */
-    display: flex; /* Flexbox para o layout */
-    align-items: center; /* Alinha verticalmente os itens */
-    background-color: var(--background-color); /* Cor de fundo */
-    border: 1px solid #ccc; /* Borda da caixa de pesquisa */
-    border-radius: 10px; /* Bordas arredondadas */
-    padding: 5px 15px; /* Padding interno */
-    box-shadow: 0 2px 5px var(--shadow-color); /* Sombra sutil */
-    width: 700px; /* Largura fixa */
-    max-width: 90%; /* Largura máxima */
-    justify-content: flex-start; /* Alinha os itens à esquerda */
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  background-color: var(--background-color);
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 5px 15px;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  width: 700px;
+  max-width: 90%;
+  justify-content: flex-start;
 }
 
-/* Estilo do ícone de localização */
+.logo a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+}
+
+.logo span {
+  font-size: 25px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
 .search-bar .location {
-    width: 200px;
-    display: flex; /* Flexbox para alinhar os itens */
-    align-items: center; /* Alinha verticalmente o ícone e o texto */
-    margin-right: 10px; /* Margem à direita */
-    color: var(--light-text-color); /* Cor do texto */
-    padding-right: 10px; /* Espaço à direita */
-    border-right: 2px solid #ccc; /* Barra de separação */
+  width: 200px;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  color: var(--light-text-color);
+  padding-right: 10px;
+  border-right: 2px solid #ccc;
 }
 
-/* Estilo do ícone dentro da localização */
 .search-bar .location i {
-    margin-right: 5px; /* Espaço à direita */
-    font-size: 16px; /* Tamanho do ícone */
+  margin-right: 5px;
+  font-size: 16px;
 }
 
-/* Estilo para o dropdown de seleção */
 .search-bar select {
-    flex-grow: 1; /* O dropdown ocupa o máximo de largura possível */
-    height: 30px; /* Altura fixa */
-    padding: 0 10px; /* Padding interno */
-    border-radius: 10px; /* Bordas arredondadas */
-    font-size: 14px; /* Tamanho da fonte */
-    margin-right: 10px; /* Margem à direita */
+  flex-grow: 1;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-right: 10px;
 }
 
-/* Estilo do campo de input de texto */
 .search-bar input {
-    flex: 1; /* O input ocupa o espaço restante */
-    height: 40px; /* Altura do campo de input */
-    border: none; /* Remove a borda padrão */
-    outline: none; /* Remove a linha de contorno */
-    font-size: 14px; /* Tamanho da fonte */
-    color: var(--light-text-color); /* Cor do texto */
-    margin-right: 10px; /* Margem à direita */
+  flex: 1;
+  height: 40px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: var(--light-text-color);
+  margin-right: 10px;
 }
 
-/* Estilo do botão de pesquisa */
 .search-bar button {
-    height: 40px; /* Altura do botão */
-    background-color: var(--primary-color); /* Cor de fundo do botão */
-    border: none; /* Remove a borda padrão */
-    color: white; /* Cor do texto */
-    padding: 0 15px; /* Padding interno */
-    border-radius: 10px; /* Bordas arredondadas */
-    font-size: 14px; /* Tamanho da fonte */
-    cursor: pointer; /* Cursor de pointer ao passar o mouse */
-    transition: background-color 0.3s; /* Transição suave para a cor de fundo */
-    display: flex; /* Flexbox para o layout */
-    align-items: center; /* Alinha os itens verticalmente */
-    justify-content: center; /* Alinha os itens horizontalmente */
+  height: 40px;
+  background-color: var(--primary-color);
+  border: none;
+  color: white;
+  padding: 0 15px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Efeito de hover no botão */
 .search-bar button:hover {
-    background-color: var(--secondary-color); /* Altera a cor ao passar o mouse */
+  background-color: var(--secondary-color);
 }
 
-/* Ações do Usuário - Botões de login e cadastro */
 .user-actions {
-    display: flex; /* Flexbox para o layout */
-    align-items: center; /* Alinha os itens verticalmente */
-    gap: 10px; /* Espaçamento entre os botões */
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Estilo dos botões de ação */
 .user-actions .btn {
-    border: 1px solid var(--primary-color); /* Borda do botão */
-    border-radius: 10px; /* Bordas arredondadas */
-    padding: 10px 20px; /* Padding interno */
-    font-size: 16px; /* Tamanho da fonte */
-    cursor: pointer; /* Cursor de pointer */
-    text-decoration: none; /* Remove sublinhado do link */
-    color: var(--primary-color); /* Cor do texto */
-    transition: all 0.3s ease; /* Transição suave para os efeitos de hover */
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: all 0.3s ease;
 }
 
-/* Efeito de hover nos botões de ação */
 .user-actions .btn:hover {
-    background-color: var(--secondary-color); /* Altera a cor de fundo */
-    color: white; /* Altera a cor do texto */
+  background-color: var(--secondary-color);
+  color: white;
 }
 
-/* Estilo do botão de cadastro */
 .user-actions .btn.signup {
-    background-color: var(--primary-color); /* Cor de fundo do botão */
-    color: white; /* Cor do texto */
+  background-color: var(--primary-color);
+  color: white;
 }
 
-/* Efeito de hover no botão de cadastro */
 .user-actions .btn.signup:hover {
-    background-color: var(--secondary-color); /* Altera a cor ao passar o mouse */
+  background-color: var(--secondary-color);
 }
 
-/* Imagem de perfil */
 .profile-link {
-    display: flex; /* Flexbox para alinhar os itens */
-    align-items: center; /* Alinha verticalmente */
-    justify-content: center; /* Alinha horizontalmente */
-    height: 40px; /* Altura do contêiner */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
 }
 
-/* Estilo da imagem de perfil */
 .profile-img {
-    width: 32px; /* Largura da imagem */
-    height: 32px; /* Altura da imagem */
-    border-radius: 50%; /* Deixa a imagem redonda */
-    object-fit: cover; /* Garante que a imagem cubra a área sem distorção */
-    border: 2px solid var(--primary-color); /* Borda da imagem */
-    transition: transform 0.3s ease, border-color 0.3s ease; /* Efeito de transição */
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-color);
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
-/* Efeito de hover na imagem de perfil */
 .profile-img:hover {
-    transform: scale(1.1); /* Aumenta o tamanho da imagem */
+  transform: scale(1.1);
 }
 
-/* Conteúdo principal */
 .main-content {
-    display: grid; /* Usando grid layout */
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Colunas adaptáveis */
-    gap: 20px; /* Espaçamento entre os itens */
-    padding: 40px; /* Padding interno */
-    margin: 0 auto; /* Centraliza o conteúdo */
-    max-width: calc(100% - 200px); /* Largura máxima */
-    margin-left: 80px; /* Margem à esquerda */
-    margin-right: 80px; /* Margem à direita */
-    margin-top: -20px; /* Ajusta a margem superior */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 40px;
+  margin: 0 auto;
+  max-width: calc(100% - 200px);
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-top: -20px;
 }
 
-/* Estilo do cabeçalho dos resultados de pesquisa */
 .search-results-header {
-    margin: 20px 0; /* Margem superior e inferior */
-    text-align: left; /* Alinha o texto à esquerda */
-    font-size: 24px; /* Tamanho da fonte */
-    font-weight: bold; /* Deixa o texto em negrito */
-    color: var(--text-color); /* Cor do texto */
-    padding-left: 10px; /* Padding à esquerda */
+  margin: 20px 0;
+  text-align: left;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-color);
+  padding-left: 10px;
 }
 
-/* Resultados da pesquisa */
 .search-results {
-    margin: 20px 0px; /* Margem superior e inferior */
+  margin: 20px 0px;
 }
 
-/* Cartões de restaurantes */
 .restaurant-card {
-    background-color: var(--card-background-color); /* Cor de fundo */
-    border-radius: 12px; /* Bordas arredondadas */
-    overflow: hidden; /* Garante que os itens não ultrapassem o limite */
-    box-shadow: 0 4px 8px var(--shadow-color); /* Sombra sutil */
-    text-align: left; /* Alinha o texto à esquerda */
-    transition: transform 0.3s, box-shadow 0.3s; /* Transição suave */
-    text-decoration: none; /* Remove o sublinhado do link */
-    color: inherit; /* Herdar a cor do texto */
-    cursor: pointer; /* Cursor de pointer */
-    padding: 5px; /* Padding interno */
-    display: block; /* Display block para ocupar toda a largura */
-    position: relative; /* Posição relativa para ajustes internos */
+  background-color: var(--card-background-color);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px var(--shadow-color);
+  text-align: left;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 5px;
+  display: block;
+  position: relative;
 }
 
-/* Ajuste de largura dos cartões */
 .restaurant-card {
-    width: 100%; /* O card ocupa toda a largura */
-    box-sizing: border-box; /* Inclui o padding nas dimensões do cartão */
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Efeito de hover nos cartões */
 .restaurant-card:hover {
-    transform: translateY(-5px); /* Move o card para cima */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Aumenta a sombra */
-    border: 2px solid var(--primary-color); /* Adiciona uma borda */
-    background-color: var(--hover-background-color); /* Altera a cor de fundo */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--primary-color);
+  background-color: var(--hover-background-color);
 }
 
-/* Imagem do restaurante dentro do cartão */
 .restaurant-card .image-container {
-    width: 100%; /* Ocupa toda a largura */
-    height: 130px; /* Define a altura */
-    overflow: hidden; /* Garante que a imagem não ultrapasse o limite */
-    border-radius: 12px; /* Bordas arredondadas */
+  width: 100%;
+  height: 130px;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
-/* Imagem dentro do card */
 .restaurant-card img {
-    width: 100%; /* Ocupa toda a largura */
-    height: 100%; /* Ocupa toda a altura */
-    object-fit: cover; /* A imagem cobre o espaço sem distorção */
-    transition: all 0.4s ease; /* Transição suave para transformações */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.4s ease;
 }
 
-/* Efeito de hover na imagem */
 .restaurant-card img:hover {
-    transform: scale(1.05); /* Dá zoom na imagem */
+  transform: scale(1.05);
 }
 
-/* Informações do restaurante dentro do cartão */
 .restaurant-card .info {
-    margin-top: 10px; /* Espaçamento superior */
+  margin-top: 10px;
 }
 
-/* Cabeçalho do restaurante (nome e avaliação) */
 .restaurant-card .info .header {
-    display: flex; /* Flexbox para alinhar os itens */
-    justify-content: space-between; /* Espaça os itens igualmente */
-    align-items: center; /* Alinha verticalmente */
-    margin-bottom: 8px; /* Espaçamento inferior */
-    margin-right: 10px; /* Margem à direita */
-    margin-left: 10px; /* Margem à esquerda */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
-/* Nome do restaurante */
 .restaurant-card .info .restaurant-name {
-    font-size: 18px; /* Tamanho da fonte */
-    font-weight: bold; /* Texto em negrito */
-    margin: 0; /* Remove as margens */
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
 }
 
-/* Avaliação do restaurante */
 .restaurant-card .info .rating {
-    display: flex; /* Flexbox para alinhar os itens */
-    align-items: center; /* Alinha verticalmente os itens */
-    justify-content: flex-end; /* Alinha os itens à direita */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .restaurant-card .info .rating .star-icon {
-    width: 16px; /* Largura do ícone */
-    height: 16 px; /* Altura do ícone */
-    margin-right: 5px; /* Espaço à direita */
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
 }
 
 .restaurant-card .info .rating-value {
-    font-size: 14px; /* Tamanho da fonte */
-    color: var(--text-color); /* Cor do texto */
+  font-size: 14px;
+  color: var(--text-color);
 }
 
-/* Localização e intervalo de preços */
 .restaurant-card .info .location,
 .restaurant-card .info .price-range {
-    font-size: 14px; /* Tamanho da fonte */
-    color: var(--light-text-color); /* Cor do texto */
-    margin: 5px 0; /* Margem superior e inferior */
-    margin-right: 10px; /* Margem à direita */
-    margin-left: 10px; /* Margem à esquerda */
+  font-size: 14px;
+  color: var(--light-text-color);
+  margin: 5px 0;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
-/* Categoria do restaurante */
 .restaurant-card .info .category {
-    font-size: 14px; /* Tamanho da fonte */
-    color: var(--primary-color); /* Cor da categoria */
-    margin-right: 10px; /* Margem à direita */
-    margin-left: 10px; /* Margem à esquerda */
-    margin-top: 10px; /* Margem superior */
-    margin-bottom: 0; /* Remove a margem inferior */
-    text-align: right; /* Alinha o texto à direita */
-    flex-grow: 1; /* Faz o item crescer para preencher o espaço */
-    display: flex; /* Flexbox para o layout */
-    align-items: flex-end; /* Alinha os itens na parte inferior */
-    justify-content: flex-end; /* Alinha o conteúdo à direita */
+  font-size: 14px;
+  color: var(--primary-color);
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 0;
+  text-align: right;
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
-/* Responsividade para dispositivos menores */
 @media (max-width: 768px) {
-    /* Reduzindo o padding e o tamanho dos cartões */
-    .main-content {
-        padding: 20px;
-    }
-
-    .restaurant-card {
-        padding: 10px;
-    }
-
-    .restaurant-card img {
-        height: 120px; /* Menor altura para imagens */
-    }
-
-    /* Ocultando a barra de pesquisa */
-    .search-container {
-        display: none;
-    }
-
-    /* Alterando a estrutura da navbar */
-    .navbar {
-        flex-direction: column;
-        align-items: stretch;
-        height: auto;
-    }
-
-    /* Ajustando os botões de ação */
-    .user-actions {
-        justify-content: center;
-    }
-
-    .categories-carousel {
-        margin: 20px; /* Ajusta as margens para telas menores */
-    }
-    
-    .category-item {
-        flex: 0 0 140px; /* Aumenta a largura dos itens do carrossel */
-    }
-    
-    .category-image {
-        width: 100px; /* Aumenta a largura da imagem */
-        height: 100px; /* Aumenta a altura da imagem */
-    }
-}
-
-/* Estilo para o carrossel de categorias */
-.categories-carousel {
-    overflow: hidden; /* Esconde o conteúdo que ultrapassa o limite do carrossel */
-    position: relative; /* Permite posicionamento de elementos dentro do carrossel */
-    height: 150px; /* Define uma altura fixa para o carrossel */
-    margin: 10px 100px; /* Margem externa, com espaçamento nas laterais */
-    margin-bottom: -10px; /* Margem negativa para alinhar melhor com outros elementos */
-}
-
-/* Container que segura a faixa de itens do carrossel */
-.carousel-container {
-    position: relative; /* Para garantir que o conteúdo do carrossel seja posicionado em relação ao container */
-    overflow: hidden; /* Garante que o conteúdo não ultrapasse os limites do container */
-    width: 100%; /* Faz o container ocupar toda a largura disponível */
-    border-radius: 20px; /* Bordas arredondadas */
-}
-
-/* Faixa de itens dentro do carrossel */
-.carousel-track {
-    display: flex; /* Disposição flexível para alinhar os itens lado a lado */
-    transition: transform 0.8s ease-in-out; /* Transição suave para o movimento dos itens */
-    gap: 10px; /* Sem espaçamento entre os itens */
-    padding: 10px 0; /* Padding vertical para dar espaçamento interno */
-}
-
-/* Estilo de cada item dentro do carrossel */
-.category-item {
-    flex: 0 0 auto; /* Flex fixo, ou seja, os itens não vão se expandir nem encolher */
-    width: 110px; /* Largura fixa dos itens do carrossel */
-    text-align: center; /* Alinha o texto (ou conteúdo) dentro do item */
-    margin-right: 0; /* Remove a margem à direita */
-    margin-left: 0; /* Remove a margem à esquerda */
-}
-
-/* Link que envolve cada item da categoria */
-.category-link {
-    width: 90px; /* Largura fixa para o link */
-    height: 90px; /* Altura fixa para o link */
-    background-color: var(--background-color); /* Cor de fundo branca */
-    border-radius: 12px; /* Bordas arredondadas para o link */
-    overflow: hidden; /* Esconde o conteúdo que ultrapassar os limites */
-    box-shadow: 1 4px 8px var(--shadow-color); /* Sombra suave ao redor do link */
-    text-align: center; /* Alinha o texto dentro do link */
-    transition: transform 0.3s, box-shadow 0.3s; /* Transições suaves para o efeito de hover */
-    text-decoration: none; /* Remove o sublinhado do link */
-    color: inherit; /* Herda a cor do texto do elemento pai */
-    cursor: pointer; /* Altera o cursor para pointer quando o mouse passa sobre o link */
-    padding: 5px; /* Padding interno */
-    display: block; /* Faz o link se comportar como um bloco */
-    position: relative; /* Permite posicionamento de elementos dentro do link */
-    border: 1px solid #cdcdcc; /* Borda cinza ao redor do link */
-}
-
-/* Efeitos ao passar o mouse sobre o link de categoria */
-.category-link:hover {
-    transform: translateY(-5px); /* Move o link para cima */
-    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2); /* Sombra mais intensa */
-    border: 2px solid var(--primary-color); /* Borda de cor laranja ao passar o mouse */
-    background-color: var(--hover-background-color); /* Cor de fundo clara ao passar o mouse */
-}
-
-/* Estilo da imagem dentro do item de categoria */
-.category-image {
-    width: 60px; /* Largura fixa para a imagem */
-    height: 60px; /* Altura fixa para a imagem */
-    margin: 0 auto 5px; /* Centraliza a imagem horizontalmente e cria margem inferior */
-    overflow: hidden; /* Impede a imagem de ultrapassar o contêiner */
-    display: flex; /* Utiliza flexbox para centralizar a imagem */
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    border-radius: 10px; /* Bordas arredondadas para a área da imagem */
-}
-
-/* Imagem dentro do link da categoria */
-.category-image img {
-    width: 100%; /* A imagem ocupa toda a largura do contêiner */
-    height: 100%; /* A imagem ocupa toda a altura do contêiner */
-    object-fit: cover; /* Garante que a imagem cubra toda a área sem distorcer */
-    border-radius: 0; /* Remove qualquer borda arredondada da própria imagem */
-}
-
-/* Nome da categoria */
-.category-name {
-    font-size: 12px; /* Tamanho de fonte pequeno */
-    font-weight: 500; /* Peso médio da fonte */
-    color: var(--text-color); /* Cor escura para o texto */
-    display: block; /* Faz o nome ocupar uma linha inteira */
-    margin-top: 5px; /* Margem superior para espaçar o nome da imagem */
-}
-
-/* Efeitos de hover no nome da categoria */
-.category-link:hover .category-name {
-    color: var(--primary-color); /* Muda a cor do nome para laranja ao passar o mouse */
-    transition: color 0.1s ease; /* Suaviza a transição de cor */
-}
-
-/* Efeitos de hover na imagem da categoria */
-.category-link:hover .category-image img {
-    transform: scale(1.1); /* Dá um zoom leve na imagem */
-    transition: transform 0.3s ease; /* Suaviza o efeito de zoom */
-}
-
-/* Estilo para os botões de navegação do carrossel */
-.carousel-button {
-    position: absolute; /* Posiciona os botões absolutamente dentro do carrossel */
-    top: 50%; /* Alinha verticalmente no meio */
-    transform: translateY(-50%); /* Ajusta para que o centro do botão esteja exatamente no meio */
-    width: 40px; /* Largura dos botões */
-    height: 40px; /* Altura dos botões */
-    border-radius: 50%; /* Botões circulares */
-    background-color: var(--background-color); /* Cor de fundo branca */
-    border: 1px solid #ddd; /* Borda cinza ao redor do botão */
-    display: flex; /* Flexbox para centralizar o conteúdo do botão */
-    align-items: center; /* Alinha o conteúdo verticalmente no meio */
-    justify-content: center; /* Alinha o conteúdo horizontalmente no meio */
-    cursor: pointer; /* Muda o cursor para pointer quando o mouse passa sobre o botão */
-    z-index: 10; /* Garante que o botão fique sobre os outros elementos */
-    transition: all 0.3s ease; /* Transição suave para o hover */
-}
-
-/* Efeitos de hover nos botões de navegação */
-.carousel-button:hover {
-    background-color: var(--primary-color); /* Fundo laranja ao passar o mouse */
-    color: white; /* Cor do texto (ou ícone) branco */
-    border-color: var(--primary-color); /* Borda laranja */
-}
-
-/* Botão de navegação "anterior" */
-.carousel-button.prev {
-    left: 0; /* Posiciona o botão na extremidade esquerda */
-}
-
-/* Botão de navegação "próximo" */
-.carousel-button.next {
-    right: 0; /* Posiciona o botão na extremidade direita */
-}
-
-/* Footer */
-footer {
-    background-color: var(--background-color); /* Cor de fundo */
-    padding: 20px; /* Padding interno */
-    text-align: center; /* Alinha o texto ao centro */
-    border-top: 1px solid var(--border-color); /* Borda superior */
-    margin-top: 20px; /* Margem superior */
-    margin-left: 100px; /* Margem à esquerda */
-    margin-right: 100px; /* Margem à direita */
-}
-
-
-
-/* Estilo para o fundo do modal */
-.modal {
-    display: none; /* Oculto por padrão */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-/* Estilo para o conteúdo do modal */
-.modal-content {
-    background-color: #fff;
+  .main-content {
     padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    text-align: center;
-    position: relative;
+  }
+
+  .restaurant-card {
+    padding: 10px;
+  }
+
+  .restaurant-card img {
+    height: 120px;
+  }
+
+  .search-container {
+    display: none;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+  }
+
+  .user-actions {
+    justify-content: center;
+  }
+
+  .categories-carousel {
+    margin: 20px;
+  }
+
+  .category-item {
+    flex: 0 0 140px;
+  }
+
+  .category-image {
+    width: 100px;
+    height: 100px;
+  }
 }
 
-/* Botão de fechar */
+.categories-carousel {
+  overflow: hidden;
+  position: relative;
+  height: 150px;
+  margin: 10px 100px;
+  margin-bottom: -10px;
+}
+
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 25px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.8s ease-in-out;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+.category-item {
+  flex: 0 0 auto;
+  width: 110px;
+  text-align: center;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.category-link {
+  width: 90px;
+  height: 90px;
+  background-color: var(--background-color);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 1 4px 8px var(--shadow-color);
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 5px;
+  display: block;
+  position: relative;
+  border: 1px solid #cdcdcc;
+}
+
+.category-link:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--primary-color);
+  background-color: var(--hover-background-color);
+}
+
+.category-image {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 5px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.category-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.category-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-color);
+  display: block;
+  margin-top: 5px;
+}
+
+.category-link:hover .category-name {
+  color: var(--primary-color);
+  transition: color 0.1s ease;
+}
+
+.category-link:hover .category-image img {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--background-color);
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.carousel-button:hover {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.carousel-button.prev {
+  left: 0;
+}
+
+.carousel-button.next {
+  right: 0;
+}
+
+footer {
+  background-color: var(--background-color);
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+  margin-top: 20px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  position: relative;
+}
+
 .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    color: #333;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #333;
 }

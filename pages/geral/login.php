@@ -1,13 +1,11 @@
 <?php
 session_start();
-include 'C:/wamp64/www/PAP/includes/config.php'; // Inclui a configuração do banco de dados
+include 'C:/wamp64/www/PAP/includes/config.php';
 
-// Verifica se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $senha = $_POST['password'];
 
-    // Prepara a consulta SQL para obter as informações do utilizador
     $sql = "SELECT id, senha, tipo, id_restaurante, id_fornecedor FROM Utilizador WHERE email = ?";
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("s", $email);
@@ -15,18 +13,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->store_result();
         $stmt->bind_result($id, $hash_senha, $tipo, $id_restaurante, $id_fornecedor);
 
-        // Verifica se o email existe
         if ($stmt->num_rows > 0) {
             $stmt->fetch();
-            // Verifica se a senha fornecida corresponde à senha armazenada (hash)
             if (password_verify($senha, $hash_senha)) {
-                // Inicia a sessão e armazena as informações do utilizador
                 $_SESSION['id'] = $id;
                 $_SESSION['tipo'] = $tipo;
                 $_SESSION['id_restaurante'] = $id_restaurante;
                 $_SESSION['id_fornecedor'] = $id_fornecedor;
-
-                // Redireciona para a página principal (index)
                 header("Location: index.php");
                 exit();
             } else {
@@ -49,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
-        /* Container Geral */
         .login-container, .register-container {
             width: 300px;
             margin: 100px auto;

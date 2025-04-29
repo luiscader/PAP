@@ -37,7 +37,7 @@
         }
 
         .form-column {
-            width: 100%;
+            width: 48%;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -128,31 +128,34 @@
             <div class="form-column">
                 <h2>Registrar Fornecedor</h2>
                 <label for="nome_representante">Nome do Representante:</label>
-                <input type="text" id="nome_representante" name="nome_representante" required>
+                <input type="text" id="nome_representante" name="nome_representante" placeholder="Ex: João Silva" required>
 
                 <label for="telefone_representante">Telefone do Representante:</label>
-                <input type="text" id="telefone_representante" name="telefone_representante" required>
+                <input type="text" id="telefone_representante" name="telefone_representante" placeholder="Ex: 912345678" required>
 
                 <label for="email_representante">Email do Representante:</label>
-                <input type="email" id="email_representante" name="email_representante" required>
+                <input type="email" id="email_representante" name="email_representante" placeholder="Ex: joao@empresa.com" required>
 
                 <label for="nif_empresa">NIF da Empresa:</label>
-                <input type="text" id="nif_empresa" name="nif_empresa" required>
+                <input type="text" id="nif_empresa" name="nif_empresa" placeholder="Ex: 123456789" required>
 
                 <label for="morada_sede">Morada da Sede:</label>
-                <input type="text" id="morada_sede" name="morada_sede" required>
+                <input type="text" id="morada_sede" name="morada_sede" placeholder="Ex: Rua Principal, 123" required>
+            </div>
 
+            <div class="form-column">
+                <h2>&nbsp;</h2>
                 <label for="codigo_postal_fornecedor">Código Postal:</label>
-                <input type="text" id="codigo_postal_fornecedor" name="codigo_postal_fornecedor" required>
+                <input type="text" id="codigo_postal_fornecedor" name="codigo_postal_fornecedor" placeholder="Ex: 1000-001" required>
 
                 <label for="distrito_fornecedor">Distrito:</label>
-                <input type="text" id="distrito_fornecedor" name="distrito_fornecedor" required>
+                <input type="text" id="distrito_fornecedor" name="distrito_fornecedor" placeholder="Ex: Lisboa" required>
 
                 <label for="pais_fornecedor">País:</label>
-                <input type="text" id="pais_fornecedor" name="pais_fornecedor" required>
+                <input type="text" id="pais_fornecedor" name="pais_fornecedor" placeholder="Ex: Portugal" required>
 
                 <label for="iban_fornecedor">IBAN:</label>
-                <input type="text" id="iban_fornecedor" name="iban_fornecedor" required>
+                <input type="text" id="iban_fornecedor" name="iban_fornecedor" placeholder="Ex: PT50 0000 0000 0000 0000 0000 0" required>
 
                 <button type="submit" class="register-button" name="registrar_fornecedor">Registrar Fornecedor</button>
             </div>
